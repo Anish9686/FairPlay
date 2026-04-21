@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StatCard from '../components/StatCard';
 import ScoreForm from '../components/ScoreForm';
@@ -9,6 +10,7 @@ const API = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [charities, setCharities] = useState([]);
   const [formError, setFormError] = useState('');
@@ -138,7 +140,7 @@ const Dashboard = () => {
         </div>
         <div className="flex gap-4 items-center">
           {user?.role === 'admin' && (
-            <button onClick={() => window.location.href='/admin'} className="btn btn-primary" style={{ backgroundColor: '#FFD700', color: 'black', fontWeight: 'bold' }}>
+            <button onClick={() => navigate('/admin')} className="btn btn-primary" style={{ backgroundColor: '#FFD700', color: 'black', fontWeight: 'bold' }}>
                👑 Admin Panel
             </button>
           )}
