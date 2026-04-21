@@ -22,7 +22,7 @@ const Dashboard = () => {
       setProfile(data);
     } catch (err) {
       console.error(err);
-      if (err.response && err.response.status === 401) { logout(); }
+      if (err.response && (err.response.status === 401 || err.response.status === 404)) { logout(); }
     }
   };
 
@@ -136,7 +136,12 @@ const Dashboard = () => {
           <h1>Welcome back, {displayName} 👋</h1>
           <p>Here is your performance overview.</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-center">
+          {user?.role === 'admin' && (
+            <button onClick={() => window.location.href='/admin'} className="btn btn-primary" style={{ backgroundColor: '#FFD700', color: 'black', fontWeight: 'bold' }}>
+               👑 Admin Panel
+            </button>
+          )}
           <button onClick={logout} className="btn btn-outline">Logout</button>
         </div>
       </div>
